@@ -1,0 +1,35 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 Exchange inbox rule name associated with business email compromise
+  attacks
+description: |-
+  ## Goal
+  Detect when a user configures an inbox rule with a name commonly linked to business email compromises.
+
+  ## Strategy
+  Monitor Microsoft 365 Exchange audit logs for the operations New-InboxRule or Set-InboxRule. Attackers may establish email rules to conceal incoming emails in a compromised mailbox, using simple names like `.` or `...` for their malicious rules, which are rare in most settings.
+
+  ## Triage and response
+  1. Inspect the inbox rule for any indicators:
+      * Suspicious keywords in the filter.
+      * The rule name.
+  2. Confirm the legitimacy of the inbox rule by contacting the user.
+  3. If the user is unaware of the inbox rule:
+      * Investigate other activities conducted by the user.
+      * Initiate the incident response process and investigate further.
+enabled: true
+severity: High
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Operation:(New-InboxRule Set-InboxRule)
+  Parameters.Name:("//." "`" "``" "." "," "..." "....." "...." ".." "bgh" "............" "......." "..,")
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- high_severity_alerts
+tags:
+- source.microsoft-365
+- techniques.t1564.hide_artifacts
+- tactics.ta0005.defense_evasion
+- tactics.ta0003.persistence

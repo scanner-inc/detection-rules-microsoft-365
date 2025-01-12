@@ -1,0 +1,49 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: A potentially malicious file was sent in a Microsoft Teams message
+description: |-
+  ## Goal
+  Detect when a potentially malicious file is sent in Microsoft Teams. Threat actors may send harmful files to unsuspecting users for initial access.
+
+  ## Strategy
+  Monitor Microsoft 365 SharePoint audit logs for the `FileUploaded` operation. File uploads in Teams use Microsoft Office APIs, and are logged in SharePoint. Differentiate Teams uploads by checking the app name for `Microsoft Teams Chat Files`. This detection looks for file uploads with these extensions:
+  - exe
+  - msi
+  - bin
+  - dll
+  - bat
+  - ps1
+  - vbs
+  - js
+  - scr
+  - zip
+  - rar
+  - 7z
+  - cab
+  - tar
+  - gz
+  - bz2
+
+  ## Triage and response
+  1. Investigate the potentially malicious file that was sent by viewing the SharePoint link containing the file.
+  2. Determine if the user intended to send the observed file.
+  3. If the user did not intend to send the file or is a guest/external user:
+      * Investigate other activities performed by the user.
+      * Initiate your organization's incident response process and conduct further investigation.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  AppAccessContext.ClientAppName:"Microsoft Teams Services"
+  Operation:FileUploaded
+  SourceFileName:(*.exe *.msi *.bin *.dll *.bat *.ps1 *.vbs *.js *.scr *.zip *.rar *.7z *.cab *.tar *.gz *.bz2)
+  | stats countdistinct(SourceFileName) as num_distinct_values by UserId
+  | where num_distinct_values > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- techniques.t1566.phishing
+- source.microsoft-365
+- techniques.t1199.trusted_relationship
+- tactics.ta0001.initial_access

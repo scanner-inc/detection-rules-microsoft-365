@@ -1,0 +1,33 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: A Microsoft Teams member was made owner of multiple teams
+description: |-
+  ## Goal
+  Detect when a user becomes the owner of multiple Microsoft Teams, which may indicate a privilege escalation threat.
+
+  ## Strategy
+  Monitor Microsoft Teams audit logs for events where the event name is `MemberRoleChanged` and the role value is `2`, indicating a change to Owner role. Typically, users own a few teams related to specific topics. If this change occurs for an external user or someone whose role does not align with the assigned teams, it may signal malicious activity.
+
+  ## Triage and response
+  1. Verify if the user intended to make the assigned user the owner of the teams.
+  2. If the user did not intend to grant owner privileges:
+      * Investigate other activities performed by the user.
+      * Investigate activities from the source IP.
+      * Examine actions taken by the subject user after being granted owner privileges.
+      * Initiate your organization's incident response process.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Workload:MicrosoftTeams
+  Operation:MemberRoleChanged
+  Members.Role:2
+  | stats countdistinct(TeamName) as num_distinct_values by Members.UPN
+  | where num_distinct_values > 1
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0004.privilege_escalation
+- source.microsoft-365
+- techniques.t1078.valid_accounts

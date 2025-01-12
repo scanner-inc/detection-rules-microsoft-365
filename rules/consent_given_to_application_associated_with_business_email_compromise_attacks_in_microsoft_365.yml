@@ -1,0 +1,43 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Consent given to application associated with business email compromise attacks
+  in Microsoft 365
+description: |-
+  ## Goal
+  Detect when a user consents to an application associated with business email compromise.
+
+  ## Strategy
+  Monitor Microsoft 365 Exchange audit logs for the operation "Consent to application." Attackers who gain unauthorized access may add applications to collect emails or send phishing emails. We aim to identify the following applications:
+
+  * eM Client - desktop email client with full Microsoft Office 365 synchronization.
+  * PerfectData Software - exports mailboxes for backup.
+  * Newsletter Software Supermailer - email newsletter software for high-volume emails.
+  * SigParser - email signature contact scraping and parsing.
+
+  ## Triage and response
+  1. Identify any unusual behaviors:
+      * Previous failed logins.
+      * Anomalous geo-location.
+      * VPN usage.
+  2. Determine if there is a legitimate use case for the new application by contacting the user via email.
+  3. If the user is unaware of the application:
+      * Investigate other activities performed by the user using the User Investigation dashboard.
+      * Begin the incident response process and investigate.
+enabled: true
+severity: High
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Workload:AzureActiveDirectory
+  Operation:"Consent to application."
+  ModifiedProperties.TargetId.ServicePrincipalNames.NewValue:(*caffae8c-0882-4c81-9a27-d1803af53a40* *ff8d92dc-3d82-41d6-bcbd-b9174d16362* *a245e8c0-b53c-4b67-9b45-751d1dff8e6b* *e9a7fea1-1cc0-4cd9-a31b-9137ca5deedd*)
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- high_severity_alerts
+tags:
+- techniques.t1566.phishing
+- source.microsoft-365
+- tactics.ta0009.collection
+- techniques.t1114.email_collection
+- tactics.ta0001.initial_access

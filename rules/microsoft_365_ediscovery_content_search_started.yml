@@ -1,0 +1,30 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 eDiscovery content search started
+description: |-
+  ## Goal
+  Detect when a new content search has been created.
+
+  ## Strategy
+  Monitor Microsoft 365 audit logs for operations related to starting searches. The Content Search eDiscovery feature in Microsoft 365 allows users to search for emails, documents, and instant messaging conversations in collaboration tools.
+
+  ## Triage and response
+  1. Inspect the query field to determine if the search criteria requires further investigation.
+  2. Verify the legitimacy of the content search by contacting the user.
+  3. If the user is unaware of the content search:
+      * Investigate other activities performed by the user.
+      * Initiate your organization's incident response process and investigate further.
+enabled: true
+severity: Informational
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Operation:(SearchStarted New-ComplianceSearch)
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- informational_severity_alerts
+tags:
+- source.microsoft-365
+- tactics.ta0009.collection
+- techniques.t1213.data_from_information_repositories

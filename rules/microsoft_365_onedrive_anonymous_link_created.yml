@@ -1,0 +1,27 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 OneDrive anonymous link created
+description: |-
+  ## Goal
+  Detect when a user creates an anonymous link for a Microsoft 365 document in OneDrive, enabling access for any unauthenticated user with the link.
+
+  ## Strategy
+  Monitor Microsoft 365 logs for the event of creating an anonymous link.
+
+  ## Triage and response
+  Assess if the document should be accessible anonymously.
+enabled: true
+severity: Informational
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Workload:OneDrive
+  Operation:AnonymousLinkCreated
+  | groupbycount(UserId, ObjectId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- informational_severity_alerts
+tags:
+- techniques.t1567.exfiltration_over_web_service
+- source.microsoft-365
+- tactics.ta0010.exfiltration

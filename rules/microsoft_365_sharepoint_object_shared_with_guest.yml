@@ -1,0 +1,28 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 SharePoint object shared with guest
+description: |-
+  ## Goal
+  Detect when a user shares a Microsoft 365 SharePoint document with a guest.
+
+  ## Strategy
+  Monitor Microsoft 365 logs for the event "SharingInvitationCreated" when the target user group type is "Guest."
+
+  ## Triage and response
+  Determine if the document should be shared with the external user.
+enabled: true
+severity: Low
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Workload:SharePoint
+  Operation:(SharingInvitationCreated)
+  TargetUserOrGroupType:Guest
+  | groupbycount(TargetUserOrGroupName, ObjectId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- low_severity_alerts
+tags:
+- source.microsoft-365
+- tactics.ta0009.collection
+- techniques.t1213.data_from_information_repositories
