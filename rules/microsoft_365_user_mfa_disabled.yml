@@ -1,0 +1,25 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 User MFA Disabled
+description: |-
+  Detect when a user's Multi-Factor Authentication (MFA) has been disabled,
+  which can weaken security posture or indicate a potential compromise.
+enabled: true
+severity: Low
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Operation:'Update user'
+  ModifiedProperties.Name:StrongAuthenticationMethod
+  (not ModifiedProperties.OldValue:"[]")
+  ModifiedProperties.NewValue:"[]"
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- low_severity_alerts
+tags:
+- tactics.ta0003.persistence
+- tactics.ta0005.defense_evasion
+- tactics.ta0006.credential_access
+- techniques.t1556.modify_authentication_process
+- source.microsoft-365

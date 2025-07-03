@@ -1,0 +1,24 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 Multiple Users Configured Eamil Forwarding to Same Destination
+description: |-
+  Detect when multiple users configure email forwarding to the same
+  destination, which may indicate a coordinated attack or data
+  exfiltration campaign.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Parameters.Name:(ForwardTo RedirectTo ForwardingSmtpAddress)
+  Parameters.Value:*
+  | stats countdistinct(UserId) as n_users by Parameters.Value
+  | where n_users > 1
+time_range_s: 900
+run_frequency_s: 300
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0009.collection
+- tactics.ta0010.exfiltration
+- techniques.t1114.email_collection
+- techniques.t1020.automated_exfiltration
+- source.microsoft-365

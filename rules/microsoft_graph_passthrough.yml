@@ -1,0 +1,16 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft Graph Passthrough
+description: |-
+  Detect new security alerts from Microsoft Graph Security API.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  status:newAlert
+  (not severity:informational)
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- source.microsoft-365

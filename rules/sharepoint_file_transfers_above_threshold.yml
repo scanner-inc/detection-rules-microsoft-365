@@ -1,0 +1,22 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: SharePoint File Transfers Above Threshold
+description: |-
+  Detect when a large number of SharePoint files or folders are transferred.
+  This can indicate potential data exfiltration.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  EventSource:SharePoint
+  Workload:(SharePoint OneDrive)
+  Operation:(FileDownloaded FileSyncDownloadedFull FileSyncUploadedFull FileUploaded)
+  | stats countdistinct(ObjectId) as n_objects, countdistinct(SourceRelativeUrl) as n_files by UserId
+  | where n_objects > 5000 or n_files > 500
+time_range_s: 900
+run_frequency_s: 300
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0010.exfiltration
+- techniques.t1020.automated_exfiltration
+- source.microsoft-365

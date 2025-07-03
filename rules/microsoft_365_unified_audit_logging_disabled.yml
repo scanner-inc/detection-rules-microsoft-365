@@ -14,7 +14,7 @@ enabled: true
 severity: High
 query_text: |-
   %ingest.source_type:microsoft-365
-  Operation:Set-AdminAuditLogConfig
+  Operation:'Set-AdminAuditLogConfig'
   Parameters.UnifiedAuditLogIngestionEnabled:False
   | groupbycount(UserId)
   | where @q.count > 0

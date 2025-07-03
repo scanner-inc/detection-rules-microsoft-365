@@ -1,0 +1,26 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Office Policy Tampering
+description: |-
+  Detect tampering to Audit Log, Safe Links, Safe Attachment, Anti Phish,
+  or data loss prevention (DLP) policies. This may indicate potential
+  persistence or defense evasion.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  RecordType:ExchangeAdmin
+  UserType:(Admin DcAdmin)
+  Operation:('Remove-' 'Disable-')
+  Operation:(AntiPhish SafeAttachment SafeLinks Dlp Audit)
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0003.persistence
+- tactics.ta0005.defense_evasion
+- techniques.t1098.account_manipulation
+- techniques.t1562.impair_defenses
+- source.microsoft-365

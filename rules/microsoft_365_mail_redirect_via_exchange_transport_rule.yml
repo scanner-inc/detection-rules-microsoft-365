@@ -1,0 +1,25 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 Mail Redirect via Exchange Transport Rule
+description: |-
+  Detect when Exchange Online transport rules are configured to forward
+  or redirect emails, which may indicate data exfiltration or email
+  interception attempts.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Operation:('New-TransportRule' 'Set-TransportRule')
+  Parameters.Name:(BlindCopyTo RedirectMessageTo)
+  Parameters.Value:*
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0009.collection
+- tactics.ta0010.exfiltration
+- techniques.t1114.email_collection
+- techniques.t1020.automated_exfiltration
+- source.microsoft-365

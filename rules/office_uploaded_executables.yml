@@ -1,0 +1,24 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Office Uploaded Executables
+description: |-
+  Detect when executable file types (e.g. `.exe`, `.inf`, `.gzip`,
+  `.cmd`, and `.bat`) are uploaded to Office services, such as
+  SharePoint and OneDrive.
+enabled: true
+severity: Low
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Operation:FileUploaded
+  SourceFileExtension:(exe inf gzip cmd bat)
+  | groupbycount(UserId)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- low_severity_alerts
+tags:
+- tactics.ta0011.command_and_control
+- tactics.ta0008.lateral_movement
+- techniques.t1105.ingress_tool_transfer
+- techniques.t1570.lateral_tool_transfer
+- source.microsoft-365

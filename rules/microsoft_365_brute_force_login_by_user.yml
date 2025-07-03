@@ -1,0 +1,20 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft 365 Brute Force Login by User
+description: |-
+  Detect potential brute force attacks against Microsoft 365 user
+  accounts by monitoring for multiple failed login attempts.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Operation:UserLoginFailed
+  | groupbycount(UserId)
+  | where @q.count > 10
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0006.credential_access
+- techniques.t1110.brute_force
+- source.microsoft-365

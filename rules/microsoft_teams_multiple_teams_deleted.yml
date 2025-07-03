@@ -1,0 +1,23 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Microsoft Teams Multiple Teams Deleted
+description: |-
+  Detect when multiple teams are deleted within an hour by a single user.
+  This can indicate potential data destruction or unauthorized team
+  management.
+enabled: true
+severity: Low
+query_text: |-
+  %ingest.source_type:microsoft-365
+  Workload:MicrosoftTeams
+  Operation:TeamDeleted
+  | stats countdistinct(TeamName) as n_teams by UserId
+  | where n_teams > 1
+time_range_s: 3600
+run_frequency_s: 300
+event_sink_keys:
+- low_severity_alerts
+tags:
+- tactics.ta0040.impact
+- techniques.t1485.data_destruction
+- techniques.t1489.service_stop
+- source.microsoft-365
