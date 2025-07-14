@@ -12,7 +12,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Workload:SharePoint
   Operation:(SharingInvitationCreated)
   TargetUserOrGroupType:Guest
@@ -23,6 +23,6 @@ run_frequency_s: 60
 event_sink_keys:
 - low_severity_alerts
 tags:
-- source.microsoft-365
+- source.microsoft_365
 - tactics.ta0009.collection
 - techniques.t1213.data_from_information_repositories

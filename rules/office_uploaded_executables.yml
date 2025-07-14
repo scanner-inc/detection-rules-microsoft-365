@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:FileUploaded
   SourceFileExtension:(exe inf gzip cmd bat)
   | groupbycount(UserId)
@@ -21,4 +21,4 @@ tags:
 - tactics.ta0008.lateral_movement
 - techniques.t1105.ingress_tool_transfer
 - techniques.t1570.lateral_tool_transfer
-- source.microsoft-365
+- source.microsoft_365

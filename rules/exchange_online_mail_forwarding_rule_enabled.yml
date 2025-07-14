@@ -14,7 +14,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:Set-Mailbox
   (not Parameters.ForwardingSmtpAddress:"")
   Parameters.ForwardingSmtpAddress:*
@@ -26,6 +26,6 @@ run_frequency_s: 60
 event_sink_keys:
 - medium_severity_alerts
 tags:
-- source.microsoft-365
+- source.microsoft_365
 - techniques.t1137.office_application_startup
 - tactics.ta0003.persistence

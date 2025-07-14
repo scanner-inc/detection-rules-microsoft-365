@@ -12,7 +12,7 @@ description: |-
 enabled: true
 severity: Informational
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Workload:OneDrive
   Operation:AnonymousLinkCreated
   | groupbycount(UserId, ObjectId)
@@ -23,5 +23,5 @@ event_sink_keys:
 - informational_severity_alerts
 tags:
 - techniques.t1567.exfiltration_over_web_service
-- source.microsoft-365
+- source.microsoft_365
 - tactics.ta0010.exfiltration

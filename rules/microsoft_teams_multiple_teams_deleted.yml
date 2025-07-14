@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Workload:MicrosoftTeams
   Operation:TeamDeleted
   | stats countdistinct(TeamName) as n_teams by UserId
@@ -20,4 +20,4 @@ tags:
 - tactics.ta0040.impact
 - techniques.t1485.data_destruction
 - techniques.t1489.service_stop
-- source.microsoft-365
+- source.microsoft_365

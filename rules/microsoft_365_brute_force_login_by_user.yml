@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:UserLoginFailed
   | groupbycount(UserId)
   | where @q.count > 10
@@ -17,4 +17,4 @@ event_sink_keys:
 tags:
 - tactics.ta0006.credential_access
 - techniques.t1110.brute_force
-- source.microsoft-365
+- source.microsoft_365

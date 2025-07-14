@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:'Update user'
   ModifiedProperties.Name:StrongAuthenticationMethod
   (not ModifiedProperties.OldValue:"[]")
@@ -22,4 +22,4 @@ tags:
 - tactics.ta0005.defense_evasion
 - tactics.ta0006.credential_access
 - techniques.t1556.modify_authentication_process
-- source.microsoft-365
+- source.microsoft_365

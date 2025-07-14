@@ -16,7 +16,7 @@ description: |-
 enabled: true
 severity: Informational
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:(SearchStarted New-ComplianceSearch)
   | groupbycount(UserId)
   | where @q.count > 0
@@ -25,6 +25,6 @@ run_frequency_s: 60
 event_sink_keys:
 - informational_severity_alerts
 tags:
-- source.microsoft-365
+- source.microsoft_365
 - tactics.ta0009.collection
 - techniques.t1213.data_from_information_repositories

@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   RecordType:ExchangeAdmin
   UserType:(Admin DcAdmin)
   Operation:('Remove-' 'Disable-')
@@ -23,4 +23,4 @@ tags:
 - tactics.ta0005.defense_evasion
 - techniques.t1098.account_manipulation
 - techniques.t1562.impair_defenses
-- source.microsoft-365
+- source.microsoft_365

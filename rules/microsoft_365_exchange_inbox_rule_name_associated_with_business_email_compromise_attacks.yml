@@ -19,7 +19,7 @@ description: |-
 enabled: true
 severity: High
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:(New-InboxRule Set-InboxRule)
   Parameters.Name:("//." "`" "``" "." "," "..." "....." "...." ".." "bgh" "............" "......." "..,")
   | groupbycount(UserId)
@@ -29,7 +29,7 @@ run_frequency_s: 60
 event_sink_keys:
 - high_severity_alerts
 tags:
-- source.microsoft-365
+- source.microsoft_365
 - techniques.t1564.hide_artifacts
 - tactics.ta0005.defense_evasion
 - tactics.ta0003.persistence

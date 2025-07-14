@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:('Add-MailboxPermission' 'Add-MailboxFolderPermission' 'Set-Mailbox' 'New-ManagementRoleAssignment' 'New-InboxRule' 'Set-InboxRule' 'Set-TransportRule')
   (not userId:('NT AUTHORITY\\SYSTEM (Microsoft.Exchange.ServiceHost)' 'NT AUTHORITY\\SYSTEM (Microsoft.Exchange.AdminApi.NetCore)' 'NT AUTHORITY\\SYSTEM (w3wp)' 'devilfish-applicationaccount'))
   | groupbycount(UserId)
@@ -21,4 +21,4 @@ tags:
 - tactics.ta0009.collection
 - techniques.t1098.account_manipulation
 - techniques.t1114.email_collection
-- source.microsoft-365
+- source.microsoft_365

@@ -17,7 +17,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Workload:MicrosoftTeams
   Operation:MemberRoleChanged
   Members.Role:2
@@ -29,5 +29,5 @@ event_sink_keys:
 - medium_severity_alerts
 tags:
 - tactics.ta0004.privilege_escalation
-- source.microsoft-365
+- source.microsoft_365
 - techniques.t1078.valid_accounts

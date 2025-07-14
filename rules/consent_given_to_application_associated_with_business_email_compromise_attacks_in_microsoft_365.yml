@@ -25,7 +25,7 @@ description: |-
 enabled: true
 severity: High
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Workload:AzureActiveDirectory
   Operation:"Consent to application."
   ModifiedProperties.TargetId.ServicePrincipalNames.NewValue:(*caffae8c-0882-4c81-9a27-d1803af53a40* *ff8d92dc-3d82-41d6-bcbd-b9174d16362* *a245e8c0-b53c-4b67-9b45-751d1dff8e6b* *e9a7fea1-1cc0-4cd9-a31b-9137ca5deedd*)
@@ -37,7 +37,7 @@ event_sink_keys:
 - high_severity_alerts
 tags:
 - techniques.t1566.phishing
-- source.microsoft-365
+- source.microsoft_365
 - tactics.ta0009.collection
 - techniques.t1114.email_collection
 - tactics.ta0001.initial_access

@@ -13,7 +13,7 @@ description: |-
 enabled: true
 severity: High
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:'Set-AdminAuditLogConfig'
   Parameters.UnifiedAuditLogIngestionEnabled:False
   | groupbycount(UserId)
@@ -23,6 +23,6 @@ run_frequency_s: 60
 event_sink_keys:
 - high_severity_alerts
 tags:
-- source.microsoft-365
+- source.microsoft_365
 - techniques.t1562.impair_defenses
 - tactics.ta0005.defense_evasion

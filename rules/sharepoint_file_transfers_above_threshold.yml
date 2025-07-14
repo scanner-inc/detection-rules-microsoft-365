@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   EventSource:SharePoint
   Workload:(SharePoint OneDrive)
   Operation:(FileDownloaded FileSyncDownloadedFull FileSyncUploadedFull FileUploaded)
@@ -19,4 +19,4 @@ event_sink_keys:
 tags:
 - tactics.ta0010.exfiltration
 - techniques.t1020.automated_exfiltration
-- source.microsoft-365
+- source.microsoft_365

@@ -32,7 +32,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   AppAccessContext.ClientAppName:"Microsoft Teams Services"
   Operation:FileUploaded
   SourceFileName:(.exe .msi .bin .dll .bat .ps1 .vbs .js .scr .zip .rar .7z .cab .tar .gz .bz2)
@@ -44,6 +44,6 @@ event_sink_keys:
 - medium_severity_alerts
 tags:
 - techniques.t1566.phishing
-- source.microsoft-365
+- source.microsoft_365
 - techniques.t1199.trusted_relationship
 - tactics.ta0001.initial_access

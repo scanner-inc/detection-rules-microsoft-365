@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  %ingest.source_type:"microsoft_365:audit"
   Operation:('New-TransportRule' 'Set-TransportRule')
   Parameters.Name:(BlindCopyTo RedirectMessageTo)
   Parameters.Value:*
@@ -22,4 +22,4 @@ tags:
 - tactics.ta0010.exfiltration
 - techniques.t1114.email_collection
 - techniques.t1020.automated_exfiltration
-- source.microsoft-365
+- source.microsoft_365
