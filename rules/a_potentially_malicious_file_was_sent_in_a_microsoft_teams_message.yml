@@ -35,7 +35,7 @@ query_text: |-
   %ingest.source_type:microsoft-365
   AppAccessContext.ClientAppName:"Microsoft Teams Services"
   Operation:FileUploaded
-  SourceFileName:(.exe .msi .bin .dll .bat .ps1 .vbs .js .scr .zip .rar .7z .cab .tar .gz .bz2)
+  SourceFileName:(".exe" ".msi" ".bin" ".dll" ".bat" ".ps1" ".vbs" ".js" ".scr" ".zip" ".rar" ".7z" ".cab" ".tar" ".gz" ".bz2")
   | stats countdistinct(SourceFileName) as num_distinct_values by UserId
   | where num_distinct_values > 0
 time_range_s: 300
