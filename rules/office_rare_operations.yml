@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  @scnr.source_type:microsoft_365
   Operation:('Add-MailboxPermission' 'Add-MailboxFolderPermission' 'Set-Mailbox' 'New-ManagementRoleAssignment' 'New-InboxRule' 'Set-InboxRule' 'Set-TransportRule')
   (not userId:('NT AUTHORITY\\SYSTEM (Microsoft.Exchange.ServiceHost)' 'NT AUTHORITY\\SYSTEM (Microsoft.Exchange.AdminApi.NetCore)' 'NT AUTHORITY\\SYSTEM (w3wp)' 'devilfish-applicationaccount'))
   | groupbycount(UserId)

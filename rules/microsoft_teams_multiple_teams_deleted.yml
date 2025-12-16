@@ -7,7 +7,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  @scnr.source_type:microsoft_365
   Workload:MicrosoftTeams
   Operation:TeamDeleted
   | stats countdistinct(TeamName) as n_teams by UserId
