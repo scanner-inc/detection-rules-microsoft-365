@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  @scnr.source_type:microsoft_365
   EventSource:SharePoint
   Workload:(SharePoint OneDrive)
   Operation:(FileDownloaded FileSyncDownloadedFull FileSyncUploadedFull FileUploaded)

@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Low
 query_text: |-
-  %ingest.source_type:microsoft-365
+  @scnr.source_type:microsoft_365
   Operation:'Update user'
   ModifiedProperties.Name:StrongAuthenticationMethod
   (not ModifiedProperties.OldValue:"[]")

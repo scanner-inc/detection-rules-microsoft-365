@@ -32,7 +32,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:microsoft-365
+  @scnr.source_type:microsoft_365
   AppAccessContext.ClientAppName:"Microsoft Teams Services"
   Operation:FileUploaded
   SourceFileName:(".exe" ".msi" ".bin" ".dll" ".bat" ".ps1" ".vbs" ".js" ".scr" ".zip" ".rar" ".7z" ".cab" ".tar" ".gz" ".bz2")

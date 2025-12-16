@@ -13,7 +13,7 @@ description: |-
 enabled: true
 severity: High
 query_text: |-
-  %ingest.source_type:microsoft-365
+  @scnr.source_type:microsoft_365
   Operation:'Set-AdminAuditLogConfig'
   Parameters.UnifiedAuditLogIngestionEnabled:False
   | groupbycount(UserId)
