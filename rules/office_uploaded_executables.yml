@@ -4,7 +4,6 @@ description: |-
   Detect when executable file types (e.g. `.exe`, `.inf`, `.gzip`,
   `.cmd`, and `.bat`) are uploaded to Office services, such as
   SharePoint and OneDrive.
-enabled: true
 severity: Low
 query_text: |-
   @scnr.source_type:microsoft_365

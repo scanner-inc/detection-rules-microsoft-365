@@ -2,7 +2,6 @@
 name: Microsoft Graph Passthrough
 description: |-
   Detect new security alerts from Microsoft Graph Security API.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

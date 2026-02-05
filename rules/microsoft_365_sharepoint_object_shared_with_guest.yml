@@ -9,7 +9,6 @@ description: |-
 
   ## Triage and response
   Determine if the document should be shared with the external user.
-enabled: true
 severity: Low
 query_text: |-
   @scnr.source_type:microsoft_365

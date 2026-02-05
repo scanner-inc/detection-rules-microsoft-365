@@ -14,7 +14,6 @@ description: |-
       * Investigate activities from the source IP.
       * Examine actions taken by the subject user after being granted owner privileges.
       * Initiate your organization's incident response process.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

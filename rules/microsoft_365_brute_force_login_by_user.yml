@@ -3,7 +3,6 @@ name: Microsoft 365 Brute Force Login by User
 description: |-
   Detect potential brute force attacks against Microsoft 365 user
   accounts by monitoring for multiple failed login attempts.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

@@ -10,7 +10,6 @@ description: |-
   ## Triage and response
   1. Determine if the user intended to disable audit logging.
   2. If the user is not responsible, investigate them for anomalous activity and, if needed, initiate the incident response process.
-enabled: true
 severity: High
 query_text: |-
   @scnr.source_type:microsoft_365

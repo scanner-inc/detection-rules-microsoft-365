@@ -3,7 +3,6 @@ name: SharePoint File Transfers Above Threshold
 description: |-
   Detect when a large number of SharePoint files or folders are transferred.
   This can indicate potential data exfiltration.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

@@ -9,7 +9,6 @@ description: |-
 
   ## Triage and response
   Assess if the document should be accessible anonymously.
-enabled: true
 severity: Informational
 query_text: |-
   @scnr.source_type:microsoft_365

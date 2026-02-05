@@ -4,7 +4,6 @@ description: |-
   Detect when multiple users configure email forwarding to the same
   destination, which may indicate a coordinated attack or data
   exfiltration campaign.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

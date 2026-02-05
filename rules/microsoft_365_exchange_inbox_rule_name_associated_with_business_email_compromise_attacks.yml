@@ -16,7 +16,6 @@ description: |-
   3. If the user is unaware of the inbox rule:
       * Investigate other activities conducted by the user.
       * Initiate the incident response process and investigate further.
-enabled: true
 severity: High
 query_text: |-
   @scnr.source_type:microsoft_365

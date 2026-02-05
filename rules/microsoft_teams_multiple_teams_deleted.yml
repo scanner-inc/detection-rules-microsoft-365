@@ -4,7 +4,6 @@ description: |-
   Detect when multiple teams are deleted within an hour by a single user.
   This can indicate potential data destruction or unauthorized team
   management.
-enabled: true
 severity: Low
 query_text: |-
   @scnr.source_type:microsoft_365

@@ -3,7 +3,6 @@ name: Microsoft 365 User MFA Disabled
 description: |-
   Detect when a user's Multi-Factor Authentication (MFA) has been disabled,
   which can weaken security posture or indicate a potential compromise.
-enabled: true
 severity: Low
 query_text: |-
   @scnr.source_type:microsoft_365

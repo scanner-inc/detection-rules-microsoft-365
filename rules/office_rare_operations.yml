@@ -4,7 +4,6 @@ description: |-
   Detect Office operations that are typically rare and can provide capabilities
   to attackers. These include mailbox permissions, inbox rules, and transport
   rule modifications.
-enabled: true
 severity: Low
 query_text: |-
   @scnr.source_type:microsoft_365

@@ -4,7 +4,6 @@ description: |-
   Detect when Exchange Online transport rules are configured to forward
   or redirect emails, which may indicate data exfiltration or email
   interception attempts.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

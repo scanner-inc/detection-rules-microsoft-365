@@ -29,7 +29,6 @@ description: |-
   3. If the user did not intend to send the file or is a guest/external user:
       * Investigate other activities performed by the user.
       * Initiate your organization's incident response process and conduct further investigation.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365

@@ -4,7 +4,6 @@ description: |-
   Detect tampering to Audit Log, Safe Links, Safe Attachment, Anti Phish,
   or data loss prevention (DLP) policies. This may indicate potential
   persistence or defense evasion.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:microsoft_365
